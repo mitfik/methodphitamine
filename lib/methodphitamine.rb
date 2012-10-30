@@ -1,5 +1,5 @@
 require "methodphitamine/version"
+require 'methodphitamine/it_class'
+require 'methodphitamine/monkey_patches'
 
-module Methodphitamine
-  # Your code goes here...
-end
+include Methodphitamine
