@@ -4,24 +4,24 @@
 # something like the following:
 #
 #   (1..10).select &it % 2 == 0
-# 
+#
 # For more examples, see http://methodphitamine.rubyforge.org.
 module Methodphitamine
-  
+
   # The class instantiated by the it() and its() methods from monkey_patches.rb.
   class It
-  
-    undef_method(*(instance_methods - %w*__id__ __send__*))
-  
+
+    undef_method(*(instance_methods - [:object_id, :__id__, :__send__]))
+
     def initialize
       @methods = []
     end
-    
+
     def method_missing(*args, &block)
       @methods << [args, block] unless args == [:respond_to?, :to_proc]
       self
     end
-  
+
     def to_proc
       lambda do |obj|
         @methods.inject(obj) do |current,(args,block)|
@@ -34,9 +34,9 @@ module Methodphitamine
     def methodphitamine_queue
       @methods
     end
-    
+
   end
-  
+
   class MethodphitamineMaybe < It
     def to_proc
       Proc.new do |obj|
@@ -48,5 +48,5 @@ module Methodphitamine
       end
     end
   end
-  
+
 end
