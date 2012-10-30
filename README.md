@@ -1,12 +1,21 @@
-Methodphitamine
-===============
+# Methodphitamine
 
 The Methodphitamine is a library for syntactically cleaner list comprehensions and an interesting approach to monads in Ruby.
 
-For more information, read my [blog post](http://jicksta.com/posts/the-methodphitamine) covering the Methodphitamine.
 
-Cleaner Symbol#to_proc
-----------------------
+## Installation
+
+Add this line to your application's Gemfile:
+
+    gem 'methodphitamine', :git => "git://github.com/mitfik/methodphitamine.git"
+
+And then execute:
+
+    $ bundle
+
+## Usage
+
+### Cleaner Symbol#to_proc
 
 One of the beautiful things the Ruby community has informally built into the language is Symbol#to_proc. The Methodphitamine takes beauty one step further.
 
@@ -26,8 +35,7 @@ And now with the Methodphitamine once more:
 
 Notice how even with Symbol#to_proc a block literal is still necessary because it simply can’t do nested arguments. The Methodphitamine fixes this by preserving all arguments and being more readable to boot.
 
-New: Monads
------------
+### New: Monads
 
 You can now do something like this:
 
@@ -35,8 +43,7 @@ You can now do something like this:
 
 If the `my_array` variable were equal to `["foo", "bar", "qaz"]`, the result of the expression above would be `"OOF"`. However, if `my_array` were equal to `[]`, the result of the expression would be `nil`. This `maybe` method will execute the chain of methods if and only if all were successful. If one failed, `nil` is returned.
 
-So how does The Methodphitamine work?
--------------------------------------
+### So how does The Methodphitamine work?
 
 The `it()` and `its()` protected methods are added to `Kernel` so it can be called from anywhere in a Ruby script but not on any particular `Object` instance. They each simply return a new `It` instance.
 
@@ -51,3 +58,11 @@ The idea of an it implied block argument comes from the Groovy guys. For example
     [1,2,3,4].each { println it }
 
 From the Groovy documentation on closures, “A closure always has at least one argument, which will be available within the body of the closure via the implicit parameter it if no explicit parameters are defined. The developer never has to declare the it variable – like the this parameter within objects, it is implicitly available.”
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
